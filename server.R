@@ -18,6 +18,10 @@ function(input, output, session) {
   
   output$plot <- renderPlot({
     v <- terms()
+    if(input$selection !="All"){
+    service<-Deskpro[Deskpro$Service==input$selection]  
+    }
+    service
     wordcloud_rep(names(v), v, scale=c(4,0.5),
                   min.freq = input$freq, max.words=input$max,
                   colors=brewer.pal(8, "RdYlGn"))
