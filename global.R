@@ -5,6 +5,7 @@ library(memoise)
 library(wordcloud)
 library("SnowballC")
 library("RColorBrewer")
+library(dplyr)
 
 setwd("C:/Users/AT003502/Documents/Emma/FB dashboard/facebook data with organic likes/word_test/")
 
@@ -15,10 +16,9 @@ service <- list(Deskpro$Service)
 getTermMatrix <- memoise(function(services) {
   # Carefluword not to let just any name slip in here; a
   # malicious user could manipulate this value.
-  if (!(service %in% service))
-    stop("Unknown service")
+  #if (!(service %in% service))
+    #stop("Unknown service")
   
-  #text <- readLines("DeskPro_test.txt")
   docs <- Corpus(VectorSource(Deskpro$Message))
   inspect(docs)
   toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
@@ -60,7 +60,7 @@ getTermMatrix <- memoise(function(services) {
   v <- sort(rowSums(m),decreasing=TRUE)
   d <- data.frame(word = names(v),freq=v)
   head(d,10 )
-  
+  str(docs)
   set.seed(1234)
   wordcloud(words = d$word, freq = d$freq, min.freq = 1,
             max.words=50, random.order=FALSE, rot.per=0.35, 

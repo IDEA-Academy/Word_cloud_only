@@ -6,7 +6,8 @@ fluidPage(
   sidebarLayout(
     sidebarPanel(
       selectInput("selection", "Choose a service:",
-                  choices = Deskpro$Service),
+                  c("All",
+                    unique(as.character(Deskpro$Service)))),
       actionButton("update", "Change"),
       hr(),
       sliderInput("freq",
